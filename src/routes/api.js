@@ -6,6 +6,8 @@ router.get('/crash', (req, res) => {
   res.json({ ok: true, x });
 });
 
+
+
 // ✅ Used by the web form
 router.post('/payments/charge', async (req, res, next) => {
   try {
@@ -24,6 +26,13 @@ router.post('/payments/charge', async (req, res, next) => {
       customerId,
     });
   } catch (e) {
+    // Report incident with stack trace
+    fetch('http://localhost:3000/incident', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ stack: e.stack }),
+    }).catch(() => {}); // Don't block on incident reporting failures
+
     next(e);
   }
 });
