@@ -31,7 +31,7 @@ router.post("/payments/charge", async (req, res, next) => {
     fetch("http://localhost:3000/api/incident", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ stack: e.stack }),
+      body: JSON.stringify({ stacktrace: e.stack }),
     }).catch(() => {}); // Don't block on incident reporting failures
 
     next(e);
