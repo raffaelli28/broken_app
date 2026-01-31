@@ -1,35 +1,36 @@
-import { Router } from 'express';
+import { request, Router } from "express";
 const router = Router();
 
-router.get('/crash', (req, res) => {
+router.get("/crash", (req, res) => {
   const x = req.body.value.test; // still crashes for testing
   res.json({ ok: true, x });
 });
 
-
-
 // ✅ Used by the web form
-router.post('/payments/charge', async (req, res, next) => {
+router.post("/payments/charge", async (req, res, next) => {
   try {
     // req.body is from the form; values come in as strings
     const amount = Number(req.body.amount);
     const customerId = req.body.customer_id;
+    const token = req.body.token;
+
+    token_id = token.id;
 
     // Keep it simple for now
-    if (!Number.isFinite(amount)) throw new Error('Invalid amount');
+    if (!Number.isFinite(amount)) throw new Error("Invalid amount");
 
     res.json({
       ok: true,
       charged: amount,
-      currency: req.body.currency || 'USD',
+      currency: req.body.currency || "USD",
       tokenProvided: !!token,
       customerId,
     });
   } catch (e) {
     // Report incident with stack trace
-    fetch('http://localhost:3000/incident', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("http://localhost:3000/incident", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stack: e.stack }),
     }).catch(() => {}); // Don't block on incident reporting failures
 
