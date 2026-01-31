@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock Broken App</title>
+    <style>
+      body { font-family: sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; }
+      input, button { padding: 10px; font-size: 16px; }
+      label { display: block; margin-top: 12px; }
+      .row { display: flex; gap: 12px; align-items: center; }
+      .row input { flex: 1; }
+      .hint { color: #555; font-size: 13px; margin-top: 6px; }
+    </style>
+  </head>
+  <body>
+    <h1>Mock Broken App</h1>
+    <p>Use this form to hit the API. Later commits can break it to simulate incidents.</p>
+
+    <h2>Charge Payment</h2>
+    <form method="POST" action="/api/payments/charge">
+      <label>Amount</label>
+      <div class="row">
+        <input name="amount" type="number" step="0.01" value="25" required />
+      </div>
+
+      <label>Currency (optional)</label>
+      <div class="row">
+        <input name="currency" type="text" value="USD" />
+      </div>
+
+      <label>Token (optional — later commits may require this)</label>
+      <div class="row">
+        <input name="token" type="text" placeholder="tok_123..." />
+      </div>
+      <div class="hint">Try submitting with token blank vs filled.</div>
+
+      <div style="margin-top: 16px;">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <h2>Crash Test</h2>
+    <p><a href="/api/crash">Click here to trigger /api/crash</a></p>
+  </body>
+</html>
