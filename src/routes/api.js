@@ -28,7 +28,7 @@ router.post("/payments/charge", async (req, res, next) => {
     });
   } catch (e) {
     // Report incident with stack trace
-    fetch("http://localhost:3000/incident", {
+    fetch("http://localhost:3000/api/incident", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stack: e.stack }),
