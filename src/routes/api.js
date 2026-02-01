@@ -14,6 +14,7 @@ router.post("/payments/charge", async (req, res, next) => {
     const customerId = req.body.customer_id;
     const token = req.body.token;
 
+    // get token
     token_id = token.id;
 
     // Keep it simple for now
